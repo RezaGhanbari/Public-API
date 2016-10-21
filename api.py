@@ -10,33 +10,36 @@ class CPIData(object):
     """
 
     def __init__(self):
-        # Each year available to the dataset will end up as a simple key-value
-        # pair within this dict. We don't really need any order here so going
-        # with a plain old dictionary is the best approach.
+        # Each year available to the data set will end up as a simple key-value
+        # pair within this dict. We don't really need any order here so
+        # going with a plain old dictionary is the best approach.
         self.year_cpi = {}
 
         # Later on we will also remember the first and the last year
-        # we have found in the dataset  to handle years prior or after
-        # the documented time span.
+        # we have found in the data set. To handle years prior
+        # or after the documented time span.
         self.last_year = None
         self.first_year = None
 
     def load_from_url(self, url, save_as_file=None):
-        """Loads data from a given url.
+        """
+        Loads data from a given url.
 
-        The downloaded file can also be saved into a location for later
-        re-use with the "save_as_file" parameter specifying a filename.
-
-        After fetching the file this implementation uses load_from_file
+        The downloaded file can also be saved into a location
+        for later re-use with the "save_as_file" parameter
+        specifying a filename. After fetching the file
+        this implementation uses load_from_file
         internally.
-
         """
 
-        # We don't really know how much data we are going to get here, so
-        # it is recommended to just keep as little data as possible in memory
-        # at all times. Since python-requests supports gzip-compression by
-        # default and decoding these chunks on their own isn't that easy,
-        # we just disable gzip with the empty "Accept-Encoding" header.
+        # We don't really know how much data we are going to get here,
+        # it's recommended to just keep as little data as possible
+        # in memory at all times. Since python-requests supports
+        # gzip-compression by default and decoding these
+        # chunks on their own isn't that easy, we
+        # just disable gzip with the empty
+        # "Accept-Encoding" header.
+
         fp = requests.get(url,
                           stream=True,
                           headers={'Accept-Encoding': None}).raw
